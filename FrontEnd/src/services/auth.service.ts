@@ -1,0 +1,20 @@
+import {http} from "../config/http";//นำเข้า httpinstace
+import type { LoginRequest, LoginResponse, RegisterRequest } from "../models/auth";
+import type { User } from "../models/user";
+
+export const authService = {
+    async login(payload: LoginRequest): Promise<LoginResponse> {
+        const {data} = await http.post<LoginResponse>('/api/auth/login', payload)
+        return data
+    },//method สำหรับ login
+
+    async register(payload: RegisterRequest): Promise<{message?: string}> {
+        const {data} = await http.post<{message?: string}>('/api/auth/register', payload)
+        return data
+    },//method สำหรับ register
+
+    async me(): Promise<User> {
+        const {data} = await http.get<User>('/api/auth/me')
+        return data
+    }
+}//รวมฟังก์ชันเกี่ยวกับ Auth ทั้งหมด
