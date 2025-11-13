@@ -1,5 +1,5 @@
 import {http} from "../config/http";//นำเข้า httpinstace
-import type { LoginRequest, LoginResponse, RegisterRequest } from "../models/auth";
+import type { LoginRequest, LoginResponse, RegisterRequest } from "../models/auth.model";
 import type { User } from "../models/user";
 
 export const authService = {
@@ -13,8 +13,9 @@ export const authService = {
         return data
     },//method สำหรับ register
 
-    async me(): Promise<User> {
+    async me(): Promise<User> {// // ถ้ามี endpoint นี้ใน back ให้ใช้ดึงข้อมูลผู้ใช้หลังจากมี token
         const {data} = await http.get<User>('/api/auth/me')
         return data
-    }
+    }//me()มีไว้เพื่อดึงข้อมูลผู้ใช้ปัจจุบัน
+
 }//รวมฟังก์ชันเกี่ยวกับ Auth ทั้งหมด
