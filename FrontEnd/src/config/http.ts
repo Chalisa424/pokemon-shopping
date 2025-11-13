@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuthStore } from '../stores/auth';
 
 export const http =axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
@@ -6,10 +7,18 @@ export const http =axios.create({
 
 //แนบ token อัตโนมัติทุก request ถ้ามี
 http.interceptors.request.use((config)=>{
-    const raw = localStorage.getItem('pokemon-shopping-token')
-    const token = raw ? JSON.parse(raw) : null
-    const access = token?.accessToken
-    if (access) config.headers.Authorization = `Bearer ${access}`
-    return config
+    const auth = (() =>{//ดึง token จาก Pinia store
+        try{
+            const store = useAuthStore()
+            return store
+        }catch (error){ 
+            console.error('Cannot access Pinia store', error)
+            return null
+        }
+    })()
+    const token = auth?.token ?? localStorage.getItem("pokemon-shopping-token") 
+    if (token) config.headers.Authorization = `Bearer ${token}`//แนบ token ให้ header อัตโนมัติ
+    return config//คืนค่า config กลับไปให้ axios
+
 }) //interceptor แนบ token อัตโนมัติ  (รันก่อน request ทุกครั้ง)
    //intercetor ดักทุก request/response ที่ axios ทำงาน         
