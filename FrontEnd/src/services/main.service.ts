@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useAuthStore } from '../stores/auth';
 
-export const http =axios.create({
+export const httpClient =axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080',
 })//สร้าง axios instance ชื่อ http
 
 //แนบ token อัตโนมัติทุก request ถ้ามี
-http.interceptors.request.use((config)=>{
+httpClient.interceptors.request.use((config)=>{
     const auth = (() =>{//ดึง token จาก Pinia store
         try{
             const store = useAuthStore()

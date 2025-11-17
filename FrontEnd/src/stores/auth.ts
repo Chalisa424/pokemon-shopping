@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { authService } from "../services/auth.service";
 import type { User } from "../models/user";
-
+//เอาไว้เก็บค่าอย่างเดียวกับ setค่า
 export const useAuthStore = defineStore("auth", {
 //state ตัวแปรที่เก็บข้อมูลในระบบ
   state: () => ({
@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", {
     isAuthenticated: (state) => !!state.token,
     isAdmin: (state) => state.user?.role === "admin", //เช็ค user.role เป็น admin มั้ย 
   },
-  actions: {
+  actions: {//เอาไว้ในหน้าLogin.vue
     async login(username: string, password: string) {
       const { token } = await authService.login({ username, password });//ยิง API login
       this.token = token;//เก็บ token ไว้ใน store
