@@ -1,6 +1,6 @@
 <template>
-  <div class="space-y-1">
-    <label v-if="label" class="block text-sm font-medium text-gray-700">
+  <div class="space-y-1.5">
+    <label v-if="label" class="block text-base font-medium text-slate-700">
       {{ label }}
     </label>
 
@@ -8,8 +8,8 @@
       :type="type"
       :placeholder="placeholder"
       v-model="model"
-      class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none 
-             focus:ring-2 focus:ring-green-500 focus:border-green-500"
+      class="w-full border border-slate-300 rounded-lg px-3 py-2.5 text-base
+             focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400"
     />
   </div>
 </template>
